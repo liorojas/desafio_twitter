@@ -1,0 +1,40 @@
+
+ <header class="text-center">
+  <i class="fa-brands fa-square-twitter fa-5x"></i>
+  </header>
+
+<h1>The lastest twitts!!</h1>
+<%=@comments.count%>/<%=Comment.count%>
+
+<%== pagy_bootstrap_nav(@pagy)%>
+
+<h2>or look up what is interesting for u in our search bar</h2>
+
+<%= form_with url: comments_path, method: :get do |form|%>
+<%= form.text_field :query_text, placeholder: ('Search'), value: params[:query_text]%>
+<%end%>
+<br>
+<div class="text-center">
+<%=link_to "HOME", root_path, class:"btn btn-dark"%>
+</div>
+
+<div id="comments" class="d-flex row justify-content-center ">
+
+  <% @comments.each do |comment| %>
+    
+<div class="card col-3 m-2" >
+  <div class="card-body">
+    <h5 class="card-title"><%=comment.user %></h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary"><%=comment.description %></h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <%= link_to "New comment", new_comment_path, class:"card-link" %>
+    <%= link_to "Show this comment", comment, class:"card-link" %>
+  </div>
+</div>
+   
+  <% end %>
+<%== pagy_bootstrap_nav(@pagy) %>
+</div>
+
+
+
